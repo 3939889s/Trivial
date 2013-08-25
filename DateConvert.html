@@ -37,7 +37,7 @@ body{color:white;}
 		<center>
 		<BR><BR>
 		<h1>Result:</h1>
-		<BR>民國西元<BR>
+		<BR>民國西元 AD (after ROC)<BR>
 		
 		<textarea id="show" cols="17" rows="20"></textarea>
 	</td>
@@ -48,7 +48,7 @@ body{color:white;}
 		<center>
 		<BR><BR>
 		<h1>Result:</h1>
-		<BR>民前西元<BR>
+		<BR>民前西元 AD (before ROC)<BR>
 		
 		<textarea id="showB" cols="17" rows="20"></textarea>
 </td>
@@ -63,8 +63,81 @@ body{color:white;}
 		&nbsp <A HREF="mailto:jeffweil@nccu.edu.tw"> jeffweil@nccu.edu.tw</A>
 	</td></tr>	
 </table>
-</body>
+	
+	
+</div>
+
+<!--*******************************************************************************************************-->
+<!--*******************************************************************************************************-->
+<!--*******************************************************************************************************-->
+
+<!--直接輸入版-->
+<div id="typeway">
+<table bgcolor="#000080" bordercolor="silver" height="98%" width="100%">
+<tr>
+	<td VALIGN="top" >
+	<font color="white">
+	<h1>Date Format Conversion</h1>
+	<br><table  class="w"><tr><td onclick="document.getElementById('fileway').style.display='block'; document.getElementById('typeway').style.display = 'none';"><a>選取檔案方式</a></td></tr><tr><td onclick="document.getElementById('typeway').style.display='block'; document.getElementById('fileway').style.display = 'none';"><a>✔直接輸入方式</a></td></tr></table><br><br>
+		<br><br>
+		<font color="pink">
+		<h3>
+		    <i>
+			 <font color="yellow">[</font>Please input the date data<br><br>
+			 <font color="yellow">[</font>Only on IE & client would<br>&nbspcreate</i>&nbsp result TxT &nbsp<i>in source directory<br><br>
+			 <font color="yellow">[</font>Crtl+A & Crtl+C in the textarea<br><br>			 
+			</i>
+		</h3>
+		<table border=2><tr><td><font color="white"><h4><b>Input text file Example:<br><br>102.01.02<br>102/03/04<br>2013.05.06<br>2013.07.08<br>098.1.2</td></tr></table> 
+	</td>
+<TD></TD>
+
+<td VALIGN="middle">
+	<font color="white">
+		<center>
+		<BR><BR>
+		<h1>Input:</h1>
+		<BR>輸入 Input<BR>		
+		<textarea id="input" cols="17" rows="20"></textarea>
+	</td>
+
+<TD><input type="button" value=">>" onkeypress="javascript:computedate();" onclick="javascript:computedate();"></TD>
+
+<td VALIGN="middle">
+	<font color="white">
+		<center>
+		<BR><BR>
+		<h1>Result:</h1>
+		<BR>民國西元 AD (after ROC)<BR>
+		
+		<textarea id="showForType" cols="17" rows="20"></textarea>
+	</td>
+
+
+<td VALIGN="middle">
+	<font color="white">
+		<center>
+		<BR><BR>
+		<h1>Result:</h1>
+		<BR>民前西元  AD (befoe ROC)<BR>
+		
+		<textarea id="showBForType" cols="17" rows="20"></textarea>
+</td>
+
+</tr>
+</table>
+
+	<table bgcolor="cyan" width="100%">
+	<tr valign="buttom"><td>
+		<center>		
+		 ©2013 Some Rights Reserved.
+		&nbsp <A HREF="mailto:jeffweil@nccu.edu.tw"> jeffweil@nccu.edu.tw</A>
+	</td></tr>	
+	</table>
+	
 <script type="text/javascript">  
+// for file inpu way
+
   function readSingleFile(evt) {
     //Retrieve the first (and only!) File from the FileList object	
 try{
@@ -203,83 +276,12 @@ var f = evt.target.files[0];
   document.getElementById('fileinput').addEventListener('change', readSingleFile, false);
   //study:http://www.w3cwz.com/webstudy/index.php/index/data_details?id=62&b=A&s=A
 </script>
+<!--============================================================-->
+<!--============================================================-->
+<!--============================================================-->
 
-</div>
-
-
-
-
-
-<!--*******************************************************************************************************-->
-<!--*******************************************************************************************************-->
-<!--*******************************************************************************************************-->
-
-<!--直接輸入版-->
-<div id="typeway">
-<table bgcolor="#000080" bordercolor="silver" height="98%" width="100%">
-<tr>
-	<td VALIGN="top" >
-	<font color="white">
-	<h1>Date Format Conversion</h1>
-	<br><table  class="w"><tr><td onclick="document.getElementById('fileway').style.display='block'; document.getElementById('typeway').style.display = 'none';"><a>選取檔案方式</a></td></tr><tr><td onclick="document.getElementById('typeway').style.display='block'; document.getElementById('fileway').style.display = 'none';"><a>✔直接輸入方式</a></td></tr></table><br><br>
-		<br><br>
-		<font color="pink">
-		<h3>
-		    <i>
-			 <font color="yellow">[</font>Please input the date data<br><br>
-			 <font color="yellow">[</font>Only on IE & client would<br>&nbspcreate</i>&nbsp result TxT &nbsp<i>in source directory<br><br>
-			 <font color="yellow">[</font>Crtl+A & Crtl+C in the textarea<br><br>			 
-			</i>
-		</h3>
-		<table border=2><tr><td><font color="white"><h4><b>Input text file Example:<br><br>102.01.02<br>102/03/04<br>2013.05.06<br>2013.07.08<br>098.1.2</td></tr></table> 
-	</td>
-<TD></TD>
-
-<td VALIGN="middle">
-	<font color="white">
-		<center>
-		<BR><BR>
-		<h1>Input:</h1>
-		<BR>輸入<BR>		
-		<textarea id="input" cols="17" rows="20"></textarea>
-	</td>
-
-<TD><input type="button" value=">>" onkeypress="javascript:computedate();" onclick="javascript:computedate();"></TD>
-
-<td VALIGN="middle">
-	<font color="white">
-		<center>
-		<BR><BR>
-		<h1>Result:</h1>
-		<BR>民國西元<BR>
-		
-		<textarea id="showForType" cols="17" rows="20"></textarea>
-	</td>
-
-
-<td VALIGN="middle">
-	<font color="white">
-		<center>
-		<BR><BR>
-		<h1>Result:</h1>
-		<BR>民前西元<BR>
-		
-		<textarea id="showBForType" cols="17" rows="20"></textarea>
-</td>
-
-</tr>
-</table>
-
-	<table bgcolor="cyan" width="100%">
-	<tr valign="buttom"><td>
-		<center>		
-		 ©2013 Some Rights Reserved.
-		&nbsp <A HREF="mailto:jeffweil@nccu.edu.tw"> jeffweil@nccu.edu.tw</A>
-	</td></tr>	
-	</table>
-
-	<script type="text/javascript">  
-
+<script type="text/javascript">  
+// for type input way
 function computedate() {   
 	
     if (document.getElementById("input").value!='') {	
