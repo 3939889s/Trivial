@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+<meta http-equiv="content-type" content="text/html; charset=big5" />
+<style type="text/css">
+body{color:white;}
+.w td{
+	background-color:orange;
+	cursor: pointer;
+}
+#typeway{
+	display:none;	
+}
+</style>
+<div id="fileway">
+<table bgcolor="#000080" bordercolor="silver" height="98%" width="100%">
+<tr>
+	<td VALIGN="top" >
+	<font color="white">
+	<h1>Date Format Conversion</h1>
+	<br><table class="w"><tr><td  onclick="document.getElementById('fileway').style.display='block'; document.getElementById('typeway').style.display = 'none';">✔選取檔案方式</td></tr></table><table class="w"><tr><td onclick="document.getElementById('typeway').style.display='block'; document.getElementById('fileway').style.display = 'none';">直接輸入方式</td></tr></table><br><br><input type="file" size="15" id="fileinput" /><br><br><br><br><br><br>
+		<font color="pink">
+		<h3>
+		    <i>
+			 <font color="yellow">[</font>Please select the source file<br><br>
+			 <font color="yellow">[</font>Only on IE & client would<br>&nbspcreate</i>&nbsp result TxT &nbsp<i>in source directory<br><br>
+			 <font color="yellow">[</font>Crtl+A & Crtl+C in the textarea<br><br>
+			 <font color="yellow">[</font>EXCEL符合目的格式.文字儲存格</font><br>
+			</i>
+		</h3>
+		<table border=2><tr><td><font color="white"><h4><b>Input text file Example:<br><br>102.01.02<br>102/03/04<br>2013.05.06<br>2013.07.08<br>098.1.2</td></tr></table> 
+	</td>
+<TD></TD>
+
+<td VALIGN="middle">
+	<font color="white">
+		<center>
+		<BR><BR>
+		<h1>Result:</h1>
+		<BR>民國西元<BR>
+		
+		<textarea id="show" cols="17" rows="20"></textarea>
+	</td>
+
+
+<td VALIGN="middle">
+	<font color="white">
+		<center>
+		<BR><BR>
+		<h1>Result:</h1>
+		<BR>民前西元<BR>
+		
+		<textarea id="showB" cols="17" rows="20"></textarea>
+</td>
+
+</tr>
+</table>
+
+<table bgcolor="cyan" width="100%">
+	<tr valign="buttom"><td>
+		<center>		
+		©2013 Some Rights Reserved.
+		&nbsp <A HREF="mailto:jeffweil@nccu.edu.tw"> jeffweil@nccu.edu.tw</A>
+	</td></tr>	
+</table>
+</body>
+<script type="text/javascript">  
+  function readSingleFile(evt) {
+    //Retrieve the first (and only!) File from the FileList object	
+try{
+evt.target.files[0]=""; 
+var f = evt.target.files[0]; 
+
+    if (f) {	
+      var r = new FileReader();	  
+      r.onload = function(e) { 
+	  
+	      var contents = e.target.result;
+		  var r = contents.split('\r\n'); 
+		  var alet="";
+		  var Y ;
+		  var YB ;
+		  var M ;
+		  var D ;
+		  var result="";
+		  var resultB="";
+		    
+
+
+		  for(var i=0;i<r.length;i++){
+		    var ri=r[i].split('.');
+			var r2=r[i].split('/');
+		    if(ri.length==3){
+			 Y=parseInt(ri[0]);
+			 M=parseInt(ri[1]);
+			 D=parseInt(ri[2]);
+			  if(Y.toString()=="NaN"||M.toString()=="NaN"||D.toString()=="NaN"||Y.toString()=="0"||M.toString()=="0"||D.toString()=="0"){
+		      alet+="<BR>->Format Exception on Line "+(i+1);
+			  result+="***\r\n";
+			  resultB+="***\r\n";
+			  }
+			  else{
+			  if(Y<200){
+			     YB=1911-Y;
+		         Y=Y+1911;
+		        } 
+	             if(M>9){
+                       if(D>9){result+=(Y+"/"+M+"/"+D+" \r\n");resultB+=(YB+"/"+M+"/"+D+" \r\n");}
+                       else{result+=(Y+"/"+M+"/0"+D+" \r\n");resultB+=(YB+"/"+M+"/0"+D+" \r\n");}
+                     }
+                     else{
+                       if(D>9){result+=(Y+"/0"+M+"/"+D+" \r\n");resultB+=(YB+"/0"+M+"/"+D+" \r\n");}
+                       else{result+=(Y+"/0"+M+"/0"+D+" \r\n");resultB+=(YB+"/0"+M+"/0"+D+" \r\n");}
+                     }
+			  }
+			}
+			else if(r2.length==3){
+		     Y=parseInt(r2[0]);
+			 M=parseInt(r2[1]);
+			 D=parseInt(r2[2]);
+			  if(Y.toString()=="NaN"||M.toString()=="NaN"||D.toString()=="NaN"||Y.toString()=="0"||M.toString()=="0"||D.toString()=="0"){
+		      alet+="<BR>->Format Exception on Line "+(i+1);
+			  result+="***\r\n";
+			  }
+			  else{
+			  if(Y<200){
+			     YB=1911-Y;
+		         Y=Y+1911;
+		        } 
+	             if(M>9){
+                       if(D>9){result+=(Y+"/"+M+"/"+D+" \r\n");resultB+=(YB+"/"+M+"/"+D+" \r\n");}
+                       else{result+=(Y+"/"+M+"/0"+D+" \r\n");resultB+=(YB+"/"+M+"/0"+D+" \r\n");}
+                     }
+                     else{
+                       if(D>9){result+=(Y+"/0"+M+"/"+D+" \r\n");resultB+=(YB+"/0"+M+"/"+D+" \r\n");}
+                       else{result+=(Y+"/0"+M+"/0"+D+" \r\n");resultB+=(YB+"/0"+M+"/0"+D+" \r\n");}
+                     }
+			  }
+			}
+			
+			
+			else{			
+			alet+="<BR>->Format Exception on Line "+(i+1);			
+			result+="***\r\n";
+			resultB+="***\r\n";
+			
+			}
+		  }
+		  
+		  
+		  
+		  
+        alert("Ok!\n"+"File name: " + f.name + "\n"              
+              +"File size:    " + f.size + " bits\n"
+              + "starts with: " + contents.substring(0, contents.indexOf("\r\n"))
+        );  
+		//document.getElementById('txt').value=document.getElementById('fileinput').value;
+		document.getElementById('show').innerHTML=result;		
+        document.getElementById('showB').innerHTML=resultB;	
+        document.getElementById('di').style.color="#FFFF00";		
+		document.getElementById('di').innerHTML=alet;
+		
+		
+		if(window.clipboardData){
+		      var path=document.getElementById('fileinput').value;
+			  var now=path.split('\\');
+			  var npath="";
+			  var npathB="";
+			  for(var i=0;i<now.length-1;i++){
+			    npath+=now[i]+"\\";
+			  }
+			  npathB=npath+"\\RESULT_year_B.txt"
+			  npath+="\\RESULT_year.txt"
+	          var fso = new ActiveXObject("Scripting.FileSystemObject");
+			  try{
+              var s = fso.CreateTextFile(npath, true);
+              s.WriteLine(result);
+			  var sB = fso.CreateTextFile(npath, true);
+              sB.WriteLine(resultB);
+              }catch(err){try{var s2 = fso.CreateTextFile("C:\\RESULT_year.txt", true);
+			  s2.WriteLine(result);}catch(err){var s3 = fso.CreateTextFile("D:\\RESULT_year.txt", true);
+			  s3.WriteLine(result);
+			  }
+              }
+			}
+      }
+      r.readAsText(f);
+	  
+	  
+	 
+     } 
+	 
+	 else { 
+      alert("Failed to load file");
+      } 
+	
+	
+	}
+	catch(err){
+	}
+  }
+
+  document.getElementById('fileinput').addEventListener('change', readSingleFile, false);
+  //study:http://www.w3cwz.com/webstudy/index.php/index/data_details?id=62&b=A&s=A
+</script>
+
+</div>
+
+
+
+
+
+<!--*******************************************************************************************************-->
+<!--*******************************************************************************************************-->
+<!--*******************************************************************************************************-->
+
+<!--直接輸入版-->
+<div id="typeway">
+<table bgcolor="#000080" bordercolor="silver" height="98%" width="100%">
+<tr>
+	<td VALIGN="top" >
+	<font color="white">
+	<h1>Date Format Conversion</h1>
+	<br><table  class="w"><tr><td onclick="document.getElementById('fileway').style.display='block'; document.getElementById('typeway').style.display = 'none';"><a>選取檔案方式</a></td></tr><tr><td onclick="document.getElementById('typeway').style.display='block'; document.getElementById('fileway').style.display = 'none';"><a>✔直接輸入方式</a></td></tr></table><br><br>
+		<br><br>
+		<font color="pink">
+		<h3>
+		    <i>
+			 <font color="yellow">[</font>Please input the date data<br><br>
+			 <font color="yellow">[</font>Only on IE & client would<br>&nbspcreate</i>&nbsp result TxT &nbsp<i>in source directory<br><br>
+			 <font color="yellow">[</font>Crtl+A & Crtl+C in the textarea<br><br>			 
+			</i>
+		</h3>
+		<table border=2><tr><td><font color="white"><h4><b>Input text file Example:<br><br>102.01.02<br>102/03/04<br>2013.05.06<br>2013.07.08<br>098.1.2</td></tr></table> 
+	</td>
+<TD></TD>
+
+<td VALIGN="middle">
+	<font color="white">
+		<center>
+		<BR><BR>
+		<h1>Input:</h1>
+		<BR>輸入<BR>		
+		<textarea id="input" cols="17" rows="20"></textarea>
+	</td>
+
+<TD><input type="button" value=">>" onkeypress="javascript:computedate();" onclick="javascript:computedate();"></TD>
+
+<td VALIGN="middle">
+	<font color="white">
+		<center>
+		<BR><BR>
+		<h1>Result:</h1>
+		<BR>民國西元<BR>
+		
+		<textarea id="showForType" cols="17" rows="20"></textarea>
+	</td>
+
+
+<td VALIGN="middle">
+	<font color="white">
+		<center>
+		<BR><BR>
+		<h1>Result:</h1>
+		<BR>民前西元<BR>
+		
+		<textarea id="showBForType" cols="17" rows="20"></textarea>
+</td>
+
+</tr>
+</table>
+
+	<table bgcolor="cyan" width="100%">
+	<tr valign="buttom"><td>
+		<center>		
+		 ©2013 Some Rights Reserved.
+		&nbsp <A HREF="mailto:jeffweil@nccu.edu.tw"> jeffweil@nccu.edu.tw</A>
+	</td></tr>	
+	</table>
+
+	<script type="text/javascript">  
+
+function computedate() {   
+	
+    if (document.getElementById("input").value!='') {	
+		var a = document.getElementById("input").value;	  
+		//alert(a);
+	  
+	    
+		  var r = a.split('\n'); 
+		  var alet="";
+		  var Y ;
+		  var YB ;
+		  var M ;
+		  var D ;
+		  var result="";
+		  var resultB="";
+		    
+			//alert(r);
+
+		  for(var i=0;i<r.length;i++){
+		    var r1=r[i].split('.');
+			var r2=r[i].split('/');
+		    if(r1.length==3){
+			 Y=parseInt(r1[0]);
+			 M=parseInt(r1[1]);
+			 D=parseInt(r1[2]);
+			  if(Y.toString()=="NaN"||M.toString()=="NaN"||D.toString()=="NaN"||Y.toString()=="0"||M.toString()=="0"||D.toString()=="0"){
+		      alet+="<BR>->Format Exception on Line "+(i+1);
+			  result+="***\r\n";
+			  resultB+="***\r\n";
+			  }
+			  else{
+			  if(Y<200){
+			     YB=1911-Y;
+		         Y=Y+1911;
+		        } 
+	             if(M>9){
+                       if(D>9){result=result.concat(Y+"/"+M+"/"+D+" \r\n");resultB=resultB.concat(YB+"/"+M+"/"+D+" \r\n");}
+                       else{result=result.concat(Y+"/"+M+"/0"+D+" \r\n");resultB=resultB.concat(YB+"/"+M+"/0"+D+" \r\n");}
+                     }
+                     else{
+                       if(D>9){result=result.concat(Y+"/0"+M+"/"+D+" \r\n");resultB=resultB.concat(YB+"/0"+M+"/"+D+" \r\n");}
+                       else{result=result.concat(Y+"/0"+M+"/0"+D+" \r\n");resultB=resultB.concat(YB+"/0"+M+"/0"+D+" \r\n");}
+                     }
+			  }
+			}
+			else if(r2.length==3){
+		     Y=parseInt(r2[0]);
+			 M=parseInt(r2[1]);
+			 D=parseInt(r2[2]);
+			  if(Y.toString()=="NaN"||M.toString()=="NaN"||D.toString()=="NaN"||Y.toString()=="0"||M.toString()=="0"||D.toString()=="0"){
+		      alet+="<BR>->Format Exception on Line "+(i+1);
+			  result+="***\r\n";
+			  }
+			  else{
+			  if(Y<200){
+			     YB=1911-Y;
+		         Y=Y+1911;
+		        } 
+	             if(M>9){
+                       if(D>9){result=result.concat(Y+"/"+M+"/"+D+" \r\n");resultB=resultB.concat(YB+"/"+M+"/"+D+" \r\n");}
+                       else{result=result.concat(Y+"/"+M+"/0"+D+" \r\n");resultB=resultB.concat(YB+"/"+M+"/0"+D+" \r\n");}
+                     }
+                     else{
+                       if(D>9){result=result.concat(Y+"/0"+M+"/"+D+" \r\n");resultB=resultB.concat(YB+"/0"+M+"/"+D+" \r\n");}
+                       else{result=result.concat(Y+"/0"+M+"/0"+D+" \r\n");resultB=resultB.concat(YB+"/0"+M+"/0"+D+" \r\n");}
+                     }
+			  }
+			}
+			
+			
+			else{			
+			alet+="<BR>->Format Exception on Line "+(i+1);			
+			result+="***\r\n";
+			resultB+="***\r\n";
+			
+			}
+		  }
+		  		  
+		  
+		  
+        
+		//document.getElementById('txt').value=document.getElementById('fileinput').value;
+		document.getElementById('showForType').innerHTML=result;		
+        document.getElementById('showBForType').innerHTML=resultB;	
+        document.getElementById('di').style.color="#FFFF00";		
+		document.getElementById('di').innerHTML=alet;
+		
+		
+		if(window.clipboardData){
+		      var path=document.getElementById('fileinput').value;
+			  var now=path.split('\\');
+			  var npath="";
+			  var npathB="";
+			  for(var i=0;i<now.length-1;i++){
+			    npath+=now[i]+"\\";
+			  }
+			  npathB=npath+"\\RESULT_year_B.txt"
+			  npath+="\\RESULT_year.txt"
+	          var fso = new ActiveXObject("Scripting.FileSystemObject");
+			  try{
+              var s = fso.CreateTextFile(npath, true);
+              s.WriteLine(result);
+			  var sB = fso.CreateTextFile(npath, true);
+              sB.WriteLine(resultB);
+              }catch(err){try{var s2 = fso.CreateTextFile("C:\\RESULT_year.txt", true);
+			  s2.WriteLine(result);}catch(err){var s3 = fso.CreateTextFile("D:\\RESULT_year.txt", true);
+			  s3.WriteLine(result);
+			  }
+              }
+			}
+      
+     
+	  
+	  
+	 
+   
+		}
+		else { 
+			alert("Failed to load input");
+	
+  }
+}
+ 
+  //study:http://www.w3cwz.com/webstudy/index.php/index/data_details?id=62&b=A&s=A
+</script>
+</div>
+
+</body>
+
+</html>
